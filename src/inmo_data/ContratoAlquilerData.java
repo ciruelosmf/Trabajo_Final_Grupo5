@@ -38,14 +38,20 @@ public class ContratoAlquilerData {
        
     }  
       
+    
+    
+    
+    
+    
    public void firmarContrato(ContratoAlquiler contrato){
-        String generadorCodigo ="";
-        LocalDate date = LocalDate.of(2018, 10, 30);
-         LocalDate date2 = LocalDate.of(2020, 10, 30);
+       String generadorCodigo ="";
+       LocalDate date = LocalDate.of(2018, 10, 30);
+       LocalDate date2 = LocalDate.of(2020, 10, 30);
        Date inicio =  Date.valueOf(date); 
        Date finContrato = Date.valueOf(date2);
        String sql = "INSERT INTO `contratoalquiler`(`vendedor`, `idPropiedad;`, `idInquilino`, `fecha_Inicio`, `fecha_Final`, `vigente`) VALUES (?,?,?,?,?,?)";
-          try {
+          
+       try {
               PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
               ps.setString(1, "Jhony");
               ps.setInt(2, contrato.getPropiedad().getIdPropiedad());
@@ -54,24 +60,33 @@ public class ContratoAlquilerData {
               ps.setDate(5, finContrato);
               ps.setBoolean(6, (finContrato.after(inicio) || finContrato.equals(inicio)));
               ps.executeUpdate();
-           ResultSet rs = ps.getGeneratedKeys();
-           if(rs.next()){
-               int id= rs.getInt("idContrato");
-              generadorCodigo = contrato.getPropiedad().getCodigo() + id;
-           sql ="UPDATE `Contratoalquiler` SET `codContrato`='" +generadorCodigo +"' WHERE `idContrato`="+id ;
-            ps = con.prepareStatement(sql);
-            ps.executeUpdate();
+              ResultSet rs = ps.getGeneratedKeys();
+              
+           if(rs.next()) {
+               
+                int id = rs.getInt("idContrato");
+                generadorCodigo = contrato.getPropiedad().getCodigo() + id;
+                sql ="UPDATE `Contratoalquiler` SET `codContrato`='" +generadorCodigo +"' WHERE `idContrato`="+id ;
+                ps = con.prepareStatement(sql);
+                ps.executeUpdate();
+                
            }
            JOptionPane.showMessageDialog(null, "Contrato cargado con exito con el codigo : "+ generadorCodigo);
             ps.close();
                       
-                      } catch (SQLException ex) {
+          } catch (SQLException ex) {
               Logger.getLogger(ContratoAlquilerData.class.getName()).log(Level.SEVERE, null, ex);
-          }
+        }
        
-   }
+    }
    
-          public void rescindirContrato(String codigoCont){
+   
+   
+   
+   
+   
+   
+ public void rescindirContrato(String codigoCont){
             LocalDate date = LocalDate.of(2000, 01, 01);
            
             Date fFinal = Date.valueOf(date);
@@ -85,11 +100,14 @@ public class ContratoAlquilerData {
               Logger.getLogger(ContratoAlquilerData.class.getName()).log(Level.SEVERE, null, ex);
           }
             
-          }
+  }
           
           
           
-           public ArrayList mostrarContratos(){
+          
+          
+          
+ public ArrayList mostrarContratos(){
               ArrayList<ContratoAlquiler> contratos = new ArrayList<>();
               Propiedad_Inmueble prop;
               Conexion conexion = new Conexion();   
@@ -119,7 +137,13 @@ public class ContratoAlquilerData {
               
               return contratos;
               
-          }
+}
+           
+           
+           
+           
+ 
+ 
            
          public ArrayList mostrarContratosPorPropietario(int idPropietario){
               ArrayList<ContratoAlquiler> contratos = new ArrayList<>();
@@ -157,6 +181,14 @@ public class ContratoAlquilerData {
            
          
          
+         
+         
+         
+         
+         
+         
+         
+         
          public ArrayList mostrarContratosPorInquilino(int idInquilino){
               ArrayList<ContratoAlquiler> contratos = new ArrayList<>();
               Propiedad_Inmueble prop;
@@ -191,6 +223,12 @@ public class ContratoAlquilerData {
               
           }
           
+         
+         
+         
+         
+         
+         
           public ArrayList buscarContratosPorInmueble(int idPropiedad){
               ArrayList<ContratoAlquiler> contratos = new ArrayList<>();
               Propiedad_Inmueble prop;
@@ -226,7 +264,9 @@ public class ContratoAlquilerData {
           
           
           
-    
+          
+          
+          
     
           public ArrayList mostrarVigentes(){
               ArrayList<ContratoAlquiler> contratos = new ArrayList<>();
@@ -260,6 +300,13 @@ public class ContratoAlquilerData {
               
           }
           
+          
+          
+          
+          
+          
+          
+          
         public ArrayList mostrarVencidos(){
               ArrayList<ContratoAlquiler> contratos = new ArrayList<>();
               Propiedad_Inmueble prop;
@@ -291,5 +338,10 @@ public class ContratoAlquilerData {
               return contratos;
               
           }
+        
+        
+        
+        
+        
     
 }

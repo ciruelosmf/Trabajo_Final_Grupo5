@@ -56,9 +56,12 @@ public class InquilinoData {
          ResultSet rs = pstm.getGeneratedKeys();
          
          JOptionPane.showMessageDialog(null,"Se cargaron Exitosamente los Datos");
+         
          if(rs.next()){
+             
           inquilino.setIdInquilino(rs.getInt(1));
-         }else{
+         }
+         else{
           JOptionPane.showMessageDialog(null,"Error al cargar los Datos"); 
           agregar = false;
          }

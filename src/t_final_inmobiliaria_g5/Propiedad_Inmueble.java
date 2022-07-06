@@ -14,7 +14,7 @@ public class Propiedad_Inmueble {
   private  int idPropiedad;
   private String codigo;
   
-   public Propietario propietario;
+  public Propietario propietario;
   private String zona;
   private  String direccion;
   private double superficie;
